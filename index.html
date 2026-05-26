@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EV MALL Warranty - กำลังเปิดระบบ...</title>
+  
+  <!-- ============================================================ -->
+  <!-- ⚠️ สำคัญ: แก้ค่าด้านล่างนี้ก่อนใช้งาน                                -->
+  <!-- เปลี่ยน URL ตรง GAS_URL ให้เป็น URL Web App ของคุณ                  -->
+  <!-- ============================================================ -->
+  <script>
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbxAmxG_yjl-375MjKOLcutAhLsL1S-ibyGHTJqdWCC_qI7p-q8DPJQLmL65cc-c5F-U/exec";
+  </script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Prompt', sans-serif; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1a2e4a 0%, #1a56a5 100%);
+      padding: 20px;
+      color: white;
+    }
+    .container {
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+    }
+    .logo {
+      width: 80px;
+      height: 80px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      backdrop-filter: blur(10px);
+    }
+    .logo svg { width: 44px; height: 44px; stroke: white; fill: none; stroke-width: 2; }
+    h1 { font-size: 22px; font-weight: 600; margin-bottom: 8px; }
+    p.subtitle { font-size: 14px; opacity: 0.8; margin-bottom: 32px; }
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid rgba(255,255,255,0.2);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 20px;
+    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    p.status { font-size: 15px; opacity: 0.9; }
+    .error-box {
+      display: none;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 20px;
+      text-align: left;
+      backdrop-filter: blur(10px);
+    }
+    .error-box.show { display: block; }
+    .error-box h3 { font-size: 16px; margin-bottom: 8px; }
+    .error-box p { font-size: 13px; opacity: 0.85; line-height: 1.5; }
+    .btn {
+      display: inline-block;
+      background: white;
+      color: #1a2e4a;
+      padding: 12px 24px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      margin-top: 16px;
+      cursor: pointer;
+      border: none;
+    }
+    .footer { margin-top: 24px; font-size: 12px; opacity: 0.6; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    </div>
+    <h1>EV MALL Warranty</h1>
+    <p class="subtitle">ระบบรับประกันสินค้า</p>
+    
+    <div id="loading">
+      <div class="spinner"></div>
+      <p class="status">กำลังเปิดระบบรับประกัน...</p>
+    </div>
+    
+    <div id="error" class="error-box">
+      <h3>⚠️ ไม่พบรหัสรับประกัน</h3>
+      <p>ลิงก์นี้ไม่มีรหัสอ้างอิงสินค้า กรุณาสแกน QR Code จากกล่องสินค้าใหม่อีกครั้ง หรือติดต่อเจ้าหน้าที่ค่ะ</p>
+    </div>
+    
+    <div class="footer">
+      © EV MALL by T.I.P. Import Export Co., Ltd.
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // อ่านค่า id จาก URL (เช่น ?id=ABC123)
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+      
+      if (!id || id.trim() === '') {
+        // ถ้าไม่มี id ให้แสดงข้อความ error
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('error').classList.add('show');
+        return;
+      }
+      
+      // Redirect ไปที่ Google Apps Script Web App พร้อมส่ง id ต่อ
+      const targetUrl = GAS_URL + '?id=' + encodeURIComponent(id.trim());
+      
+      // ใช้ replace แทน href เพื่อไม่ให้กด back กลับมาที่หน้านี้
+      window.location.replace(targetUrl);
+    })();
+  </script>
+</body>
+</html>
