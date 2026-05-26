@@ -10,12 +10,12 @@
   <!-- เปลี่ยน URL ตรง GAS_URL ให้เป็น URL Web App ของคุณ                  -->
   <!-- ============================================================ -->
   <script>
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbxAmxG_yjl-375MjKOLcutAhLsL1S-ibyGHTJqdWCC_qI7p-q8DPJQLmL65cc-c5F-U/exec";
+    https://script.google.com/macros/s/AKfycbz8CB8LaHVzeqOAw-fLtZmN394MMThjG6qIy2ciq31qey34VStcLBkRwhvge0xxACrw/exec";
   </script>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Prompt', sans-serif; }
@@ -30,61 +30,83 @@
     }
     .container {
       text-align: center;
-      max-width: 400px;
+      max-width: 420px;
       width: 100%;
     }
     .logo {
-      width: 80px;
-      height: 80px;
+      width: 90px;
+      height: 90px;
       background: rgba(255,255,255,0.15);
-      border-radius: 20px;
+      border-radius: 22px;
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 auto 24px;
       backdrop-filter: blur(10px);
     }
-    .logo svg { width: 44px; height: 44px; stroke: white; fill: none; stroke-width: 2; }
-    h1 { font-size: 22px; font-weight: 600; margin-bottom: 8px; }
-    p.subtitle { font-size: 14px; opacity: 0.8; margin-bottom: 32px; }
-    .spinner {
-      width: 48px;
-      height: 48px;
-      border: 4px solid rgba(255,255,255,0.2);
-      border-top-color: white;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 20px;
+    .logo svg { width: 48px; height: 48px; stroke: white; fill: none; stroke-width: 2; }
+    h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+    p.subtitle { font-size: 15px; opacity: 0.85; margin-bottom: 32px; }
+    
+    .info-box {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 20px;
+      text-align: left;
+      backdrop-filter: blur(10px);
     }
-    @keyframes spin { 100% { transform: rotate(360deg); } }
-    p.status { font-size: 15px; opacity: 0.9; }
+    .info-box .row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      font-size: 14px;
+    }
+    .info-box .row .label { opacity: 0.8; }
+    .info-box .row .value { font-weight: 600; font-family: monospace; }
+    
+    .btn-primary {
+      display: block;
+      width: 100%;
+      background: white;
+      color: #1a2e4a;
+      padding: 16px 24px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-primary svg { 
+      width: 20px; height: 20px; vertical-align: middle; margin-left: 6px;
+      stroke: #1a2e4a; fill: none; stroke-width: 2.5;
+    }
+    
+    .hint {
+      font-size: 13px;
+      opacity: 0.75;
+      margin-top: 16px;
+      line-height: 1.6;
+    }
+    .hint strong { color: #ffd966; }
+    
     .error-box {
-      display: none;
       background: rgba(255,255,255,0.1);
       border: 1px solid rgba(255,255,255,0.2);
       border-radius: 12px;
       padding: 20px;
-      margin-top: 20px;
       text-align: left;
       backdrop-filter: blur(10px);
     }
-    .error-box.show { display: block; }
     .error-box h3 { font-size: 16px; margin-bottom: 8px; }
     .error-box p { font-size: 13px; opacity: 0.85; line-height: 1.5; }
-    .btn {
-      display: inline-block;
-      background: white;
-      color: #1a2e4a;
-      padding: 12px 24px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
-      margin-top: 16px;
-      cursor: pointer;
-      border: none;
-    }
-    .footer { margin-top: 24px; font-size: 12px; opacity: 0.6; }
+    
+    .footer { margin-top: 28px; font-size: 12px; opacity: 0.6; }
   </style>
 </head>
 <body>
@@ -93,17 +115,9 @@
       <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
     </div>
     <h1>EV MALL Warranty</h1>
-    <p class="subtitle">ระบบรับประกันสินค้า</p>
+    <p class="subtitle">ระบบลงทะเบียนรับประกันสินค้า</p>
     
-    <div id="loading">
-      <div class="spinner"></div>
-      <p class="status">กำลังเปิดระบบรับประกัน...</p>
-    </div>
-    
-    <div id="error" class="error-box">
-      <h3>⚠️ ไม่พบรหัสรับประกัน</h3>
-      <p>ลิงก์นี้ไม่มีรหัสอ้างอิงสินค้า กรุณาสแกน QR Code จากกล่องสินค้าใหม่อีกครั้ง หรือติดต่อเจ้าหน้าที่ค่ะ</p>
-    </div>
+    <div id="content"></div>
     
     <div class="footer">
       © EV MALL by T.I.P. Import Export Co., Ltd.
@@ -112,23 +126,36 @@
 
   <script>
     (function() {
-      // อ่านค่า id จาก URL (เช่น ?id=ABC123)
       const params = new URLSearchParams(window.location.search);
       const id = params.get('id');
+      const content = document.getElementById('content');
       
       if (!id || id.trim() === '') {
-        // ถ้าไม่มี id ให้แสดงข้อความ error
-        document.getElementById('loading').style.display = 'none';
-        document.getElementById('error').classList.add('show');
+        content.innerHTML = '<div class="error-box"><h3>⚠️ ไม่พบรหัสรับประกัน</h3><p>ลิงก์นี้ไม่มีรหัสอ้างอิงสินค้า กรุณาสแกน QR Code จากกล่องสินค้าใหม่อีกครั้ง หรือติดต่อเจ้าหน้าที่ค่ะ</p></div>';
         return;
       }
       
-      // Redirect ไปที่ Google Apps Script Web App พร้อมส่ง id ต่อ
-      const targetUrl = GAS_URL + '?id=' + encodeURIComponent(id.trim());
+      const trimmedId = id.trim();
+      const targetUrl = GAS_URL + '?id=' + encodeURIComponent(trimmedId);
       
-      // ใช้ replace แทน href เพื่อไม่ให้กด back กลับมาที่หน้านี้
-      window.location.replace(targetUrl);
+      const safeId = escapeHtml(trimmedId);
+      
+      content.innerHTML = 
+        '<div class="info-box">' +
+          '<div class="row"><span class="label">รหัสอ้างอิงสินค้า</span><span class="value">' + safeId + '</span></div>' +
+        '</div>' +
+        '<a href="' + targetUrl + '" class="btn-primary" target="_self">' +
+          'เข้าสู่ระบบลงทะเบียนประกัน' +
+          ' <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>' +
+        '</a>' +
+        '<p class="hint">👆 กดปุ่มด้านบนเพื่อเปิดหน้ารับประกัน<br/><strong>หากไม่เปิด</strong> กรุณาเปิดลิงก์นี้ผ่าน <strong>Safari</strong> หรือ <strong>Chrome</strong></p>';
     })();
+    
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
   </script>
 </body>
 </html>
